@@ -1,6 +1,6 @@
 html {
     background-color: rgb(243, 233, 241);
-    
+    height: 100%
 }
 
 .HeaderNav {
@@ -10,9 +10,9 @@ html {
     align-items: center;
 }
 html, body 
-{ margin:0; padding:0; 
-}
+{ margin:0; padding:0; ;
 
+}
 
 .HeaderImage 
 {
@@ -192,12 +192,17 @@ html, body
 }
 
 .Footer
-{
-    background: rgba(237, 153, 248, 0.774);
+{  
+    background: rgb(237, 153, 248);
     display: flex;
     flex-direction: column;
     align-items: center;
+position: relative;   
+bottom: 0;
+    width: 100%;
 }
+
+
 .SocialIcon
 {
     display: flex;
