@@ -12,7 +12,7 @@ request.onreadystatechange = function () {
            <div class="BearNameProduct">${Peluche.name}</div>\
            <div class="BearPriceProduct">${Peluche.price} €</div>\
            <select name="Choix de la couleur" id="colorChoice">Please select...</select>\
-           <button class="AddToCart">Ajouter au panier</button>\
+           <button class="AddToCart" id="AddToCart">Ajouter au panier</button>\
         </div>`
 
         document.getElementById("productByID").innerHTML = template
@@ -25,7 +25,20 @@ request.onreadystatechange = function () {
             colorOptions += `<option value="${Peluche.colors[i]}">${Peluche.colors[i]}</option>`
         }
         document.getElementById("colorChoice").innerHTML = colorOptions
-        // *********
+     
+           // *********
+           document.getElementById("AddToCart").addEventListener("click", function() {
+               let objet = {
+                nom: Peluche.name,
+                quantite: document.getElementById(`Quantity`).value,
+                image: Peluche.imageUrl,
+                couleurs: document.getElementById(`colorChoice`).value,
+                id: Peluche._id,
+                prix: Peluche.price
+               };
+               localStorage.setItem(objet.id + objet.couleurs, JSON.stringify(objet));
+
+          });
     }
 };
 
@@ -56,3 +69,5 @@ request.send();
 console.log('**********' ,localStorage)
 console.log('*********************', JSON.parse(localStorage.panier))
 // localStorage.clear()
+
+
