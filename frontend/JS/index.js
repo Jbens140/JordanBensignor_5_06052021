@@ -15,7 +15,7 @@ request.onreadystatechange = function () {
 <a href="./ProductPage.html?id='+ tableauPeluches[peluches]._id +'" >\
     <img class="BearImg" src="'+ tableauPeluches[peluches].imageUrl +'" alt="Teddy_1">\
     <div class="BearTitle">'+ tableauPeluches[peluches].name +'</div>\
-    <div class="BearPrice">'+ tableauPeluches[peluches].price +'</div>\
+    <div class="BearPrice">'+ parseInt(tableauPeluches[peluches].price/100).toFixed(2) +' €</div>\
     <div class="BearColors">\
         <div class="ColorCircle"></div>\
     </div>\
@@ -29,14 +29,25 @@ request.onreadystatechange = function () {
     
 
 
+// quantite a cote de panier 
+    Qty = 0
+    for (const [key, value] of Object.entries(localStorage)) {
+        val = JSON.parse(value)
+        Qty += parseInt(val.quantite)
+    }
+    if (Qty !== 0) {
+        document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
+    }
+
+
 };
 request.open('GET', 'http://localhost:3000/api/teddies');
 request.send();
 
-let array = [{'id':'5be9c8541c9d440000665243', }]
-array = JSON.stringify(array)
-localStorage.setItem('panier', array);
-// localStorage.setItem( 'Tom','monChat');
+// ecrire quantité à droite de panier 
+    // console.log(localStorage)
+    // localStorage.clear()
+
 
 
 

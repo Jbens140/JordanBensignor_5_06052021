@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Style/style.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <script src='./JS/Product.js'></script>
     <title>Orinoco</title>
 </head>
 
@@ -16,7 +15,7 @@
         <div class="HeaderNav">
             <a href="./HomePage.html"><img class="HeaderImage" src="./images/Logo_Orinoco.png" alt="Orinoco"></a>
             <a class="Navigation" href="./HomePage.html">Accueil</a>
-            <a class="Navigation" href="./OrderPage.html">Panier <i class="fas fa-shopping-cart"></i></a>
+            <a class="Navigation" href="./OrderPage.html">Panier <i class="fas fa-shopping-cart"></i><span id="OrderQuantity"></span></a>
         </div>
     </header>
 
@@ -24,21 +23,11 @@
         <h1 class="ProductTitle">Choississez la couleur idéale de votre peluche !</h1>
         <div id='productByID'></div>
 
-        <select id="Quantity">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10+</option>
-        </select>
+        
 
     </div>
+
+
 
 
 
@@ -64,7 +53,8 @@
             </div>
         </div>
     </footer>
-
 </body>
+
+<script src='./JS/Product.js'></script>
 
 </html>
