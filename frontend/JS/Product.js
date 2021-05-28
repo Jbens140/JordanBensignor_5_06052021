@@ -1,13 +1,13 @@
 // console.log(this)
 
-var request = new XMLHttpRequest();
+let request = new XMLHttpRequest();
 request.onreadystatechange = function () {
 
     if (request.readyState === 4) {
-        var Peluche = JSON.parse(request.responseText);
+        let Peluche = JSON.parse(request.responseText);
         // console.log('****************', Peluche);
 
-        var template = `<div class="FlexProduct">\
+        let template = `<div class="FlexProduct">\
         <img class="ContainerProduct" src="${Peluche.imageUrl}" alt="${Peluche.name}">\
         <div class="ProductDescription">\
            <div class="BearNameProduct">${Peluche.name}</div>\
@@ -47,19 +47,46 @@ request.onreadystatechange = function () {
                 image: Peluche.imageUrl,
                 couleurs: document.getElementById(`colorChoice`).value,
                 id: Peluche._id,
-                prix: parseInt(Peluche.price/100).toFixed(2)
+                prix: parseInt(Peluche.price / 100).toFixed(2)
             };
             localStorage.setItem(objet.id + objet.couleurs.replace(/ /g, ''), JSON.stringify(objet));
 
 
         });
+        
+
+// Get the modal
+let modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+let btn = document.getElementById("AddToCart");
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
         // console.log("**************",document.getElementById(`colorChoice`))
 
         // Activer et descativer le button AddToCard et Quantity
         document.getElementById('colorChoice').addEventListener('change', function () {
-            var e = document.getElementById("colorChoice");
-            var strUser = e.options[e.selectedIndex].value
+            let e = document.getElementById("colorChoice");
+            let strUser = e.options[e.selectedIndex].value
 
             if (strUser === 'Choisissez votre couleur...') {
                 document.getElementById('Quantity').disabled = true
@@ -128,4 +155,8 @@ request.send();
 
 // console.log('**********' ,localStorage)
 // console.log('*********************', JSON.parse(localStorage.panier))
-// localStorage.clear()
+// localStorage.clear() 
+
+
+
+
