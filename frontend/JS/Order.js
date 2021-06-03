@@ -1,5 +1,5 @@
-console.log(localStorage)
-
+// console.log(localStorage)
+// localStorage.clear()
 let text = ''
 let index = 0
 for (const [key, value] of Object.entries(localStorage)) {
@@ -102,103 +102,172 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
     e.preventDefault();
 });
 
+
+
+// fill form
+let personalinfosObject = {
+    nom: "",
+    prenom: "",
+    sexe: "homme",
+    anniversaire: "",
+    mail: "",
+    telephone: "",
+    adresse: "",
+    complement: "",
+    zipcode: "",
+    ville: "",
+    pays: "",
+    gift: "non",
+};
+
+
+// radio button algo sexe / gift
+document.getElementById("radiosexe1").addEventListener("click", function () {
+    document.getElementById("radiosexe1").setAttribute('checked', '')
+    document.getElementById("radiosexe2").removeAttribute('checked', '')
+    personalinfosObject.sexe = 'homme'
+})
+document.getElementById("radiosexe2").addEventListener("click", function () {
+    document.getElementById("radiosexe2").setAttribute('checked', '')
+    document.getElementById("radiosexe1").removeAttribute('checked', '')
+    personalinfosObject.sexe = 'femme'
+})
+document.getElementById("radioGift1").addEventListener("click", function () {
+    document.getElementById("radioGift1").setAttribute('checked', '')
+    document.getElementById("radioGift2").removeAttribute('checked', '')
+    personalinfosObject.gift = 'oui'
+})
+document.getElementById("radioGift2").addEventListener("click", function () {
+    document.getElementById("radioGift2").setAttribute('checked', '')
+    document.getElementById("radioGift1").removeAttribute('checked', '')
+    personalinfosObject.gift = 'non'
+});
+
+
+// name
+document.getElementById("formLastname").addEventListener("change", function () {
+    personalinfosObject.nom = document.getElementById("formLastname").value
+})
+
+// firstname
+document.getElementById("formFirstname").addEventListener("change", function () {
+    personalinfosObject.prenom = document.getElementById("formFirstname").value
+})
+// birthdate
+document.getElementById("formBirthdate").addEventListener("change", function () {
+    personalinfosObject.anniversaire = document.getElementById("formBirthdate").value
+})
+// email
+document.getElementById("formMail").addEventListener("change", function () {
+    personalinfosObject.mail = document.getElementById("formMail").value
+})
+// phone
+document.getElementById("formPhone").addEventListener("change", function () {
+    personalinfosObject.telephone = document.getElementById("formPhone").value
+})
+// address
+document.getElementById("formAddress").addEventListener("change", function () {
+    personalinfosObject.adresse = document.getElementById("formAddress").value
+})
+// address Complement
+document.getElementById("formAddressComplement").addEventListener("change", function () {
+    personalinfosObject.complement = document.getElementById("formAddressComplement").value
+})
+// zipCode
+document.getElementById("formZipcode").addEventListener("change", function () {
+    personalinfosObject.zipcode = document.getElementById("formZipcode").value
+})
+// City
+document.getElementById("formCity").addEventListener("change", function () {
+    personalinfosObject.ville = document.getElementById("formCity").value
+})
+// Country
+document.getElementById("formCountry").addEventListener("change", function () {
+    personalinfosObject.pays = document.getElementById("formCountry").value
+    // console.log(personalinfosObject)
+})
+
+
+
+
+
+// Checked information -----------
 document.getElementById('confirmOrderButton').addEventListener('click', function () {
 
-    // console.log('*************************', document.getElementById('orderForm'))
-
+    let errorForm = []
     let infos = document.querySelectorAll('.personalInfos')
-
-    let personalinfosObject = {
-        nom: "",
-        prenom: "",
-        sexe: "",
-        anniversaire: "",
-        mail: "",
-        telephone: "",
-        adresse: "",
-        complement: "",
-        zipcode: "",
-        ville: "",
-        pays: "",
-        gift: "",
-    };
-
-    //    infos.forEach(item =>
-    //    value= item.value
-
-    //     )//   
-    console.log(infos)
-    console.log(infos[0].title)
-
     for (let i = 0; i < infos.length; i++) {
+
+
+
         let item = infos[i]
         if (item.title === "nom" ||
             item.title === "prenom" ||
+            item.title === "anniversaire" ||
             item.title === "mail" ||
             item.title === "telephone" ||
             item.title === "adresse" ||
             item.title === "zipcode" ||
             item.title === "ville" ||
             item.title === "Pays") {
-            if (item.value === "") {
-                console.log(item.title + " : ERREUR EMPTY")
-            } else if (item.value.replace(/ /g, "") === "") {
-                console.log("ERREUR espace non autorisé ")
 
+
+            // Check Empty field -----
+            if (item.value === "") {
+                document.getElementById(item.id).style.background = '#fa424227'
+            } else if (item.value.replace(/ /g, "") === "") {
+                document.getElementById(item.id).style.background = '#fa424227'
             } else {
-                console.log(item.title + " : " + item.value.trim())
+                document.getElementById(item.id).style.background = 'white'
             }
 
 
+            // Check Mail format ----
             if (item.title === "mail") {
                 let check = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 let result = check.test(item.value)
-                console.log("************", result)
+                // console.log("************", result)
                 if (result === false) {
-                    console.log("email non valide : " + item.value)
-                }
-            }
-            if (item.title === "telephone") {
-                let check = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
-                let result = check.test(item.value)
-                console.log("************", result)
-                if (result === false) {
-                    console.log("telephone non valide : " + item.value)
+                    document.getElementById(item.id).style.background = '#fa424227'
+                    // console.log("email non valide : " + item.value)
                 }
             }
 
+            // Check Phone / Zipcode format ---------
+            if (item.title === "telephone" || item.title === "zipcode") {
+                let check = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+                let result = check.test(item.value)
+                // console.log("************", result)
+                if (result === false) {
+                    document.getElementById(item.id).style.background = '#fa424227'
+                    // console.log(`${item.title} non valide : " + ${item.value}`)
+                }
+            }
+
+            // HTML converts automatically Hex to RGB --
+            if (document.getElementById(item.id).getAttribute("style").includes('rgba(250, 66, 66, 0.153)')) errorForm.push(item.title)
 
         }
     }
 
 
-
-
+    // console.log(errorForm)
+    // Redirect if the entire form is properly filled 
+    if (errorForm.length === 0) {
+        localStorage.setItem( 'PersonalInfos', personalinfosObject);
+        window.location.href = "./ConfirmOrderPage.html";
+       
+    }
 })
 
 
+
 // supression par ID product
-
 let listOrderId = Object.keys(localStorage)
-
-
-
-
-
 for (let i = 0; i < listOrderId.length; i++) {
     document.getElementById(`removeItem-${listOrderId[i]}`).addEventListener('click', function () {
         // alert('Vous etes sur de vouloir supprimer cet article ?')
         console.log(listOrderId[i])
-
-        // window.onload = function () {
-        //     document.onclick = function (e) {
-        //         if (e.target.id === `deletionItemPopup-${listOrderId[i]}`) {
-        //             console.log('looool')
-        //             //element clicked wasn't the div; hide the div
-        //             document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
-        //         }
-        //     };
-        // };
 
         //display popup
         document.getElementById(`deletionItemPopup-${listOrderId[i]}`).removeAttribute("hidden");
@@ -209,20 +278,12 @@ for (let i = 0; i < listOrderId.length; i++) {
             document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
             document.location.reload()
         })
-        // deletionItemPopup-${Key}
 
         //if click on NO
         document.getElementById(`cancelButtonPopup-${listOrderId[i]}`).addEventListener('click', function () {
             document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
-
         })
-
-
-        // console.log(localStorage.listOrderId[i])
-
-
-        console.log(localStorage)
-
+        // console.log(localStorage)
     })
 }
 
@@ -238,4 +299,3 @@ for (let i = 0; i < listOrderId.length; i++) {
 
 
 
-// localStorage.clear()

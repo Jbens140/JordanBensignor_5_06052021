@@ -1,10 +1,7 @@
 
 
+console.log(localStorage)
+// let idProduit = localStorage.getAttribute('idProduit')
 
 
 
-
-
-
-// /* <div>Votre commande a bien été enregistrée</div> */
-        // <p>Bonjour</p>

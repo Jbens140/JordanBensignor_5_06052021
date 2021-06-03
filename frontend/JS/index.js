@@ -17,7 +17,6 @@ request.onreadystatechange = function () {
     <div class="BearTitle">'+ tableauPeluches[peluches].name +'</div>\
     <div class="BearPrice">'+ parseInt(tableauPeluches[peluches].price/100).toFixed(2) +' €</div>\
     <div class="BearColors">\
-        <div class="ColorCircle"></div>\
     </div>\
 </a>\
 </div>';

@@ -13,10 +13,16 @@
 <body>
     <header>
         <div class="HeaderNav">
-            <a href="./HomePage.html"><img class="HeaderImage" src="./images/Logo_Orinoco.png" alt="Orinoco"></a>
-            <a class="Navigation" href="./HomePage.html">Accueil</a>
-            <a class="Navigation" href="./OrderPage.html">Panier <i class="fas fa-shopping-cart"></i><span
-                    id="OrderQuantity"></span></a>
+            <div>
+                <a href="./HomePage.html"><img class="HeaderImage" src="./images/Logo_Orinoco.png" alt="Orinoco"></a>
+            </div>
+            <div>
+                <a class="Navigation" href="./HomePage.html">Accueil</a>
+            </div>
+            <div>
+                <a class="Navigation" href="./OrderPage.html">Panier <i class="fas fa-shopping-cart"></i>
+                    <span id="OrderQuantity"></span></a>
+            </div> 
         </div>
     </header>
     <div class="ProductPage">
@@ -30,39 +36,37 @@
         </div>
     </div>
 
-    <form id='orderForm' class='orderForm'>
-        <label class='sizeLabelForm' class='sizeLabelForm' for="fname">* Veuillez entrer votre nom :</label><br>
-        <input required  title="nom" class='sizeInputForm personalInfos' type="text"> <br><br><br>
+    <form id='orderForm' class='orderForm' action="ConfirmOrderPage.html" method="GET" target="_blank">
+        <label class='sizeLabelForm' for="fname">* Veuillez entrer votre nom :</label><br>
+        <input id='formLastname' required title="nom" class='sizeInputForm personalInfos' type="text" > <br><br><br>
 
         <label class='sizeLabelForm' for="fname">* Veuillez entrer votre prénom :</label><br>
-        <input required title="prenom" class='sizeInputForm personalInfos' type="text"> <br><br><br>
+        <input id='formFirstname' required title="prenom" class='sizeInputForm personalInfos' type="text"> <br><br><br>
 
         <label class='sizeLabelForm' for="fname">* Êtes-vous ?</label><br>
-        <input required title="sexe" class='sizeInputFormRadio personalInfos' type="radio" value="homme"  name="genre"><span class='sizeInputFormRadio'> Un homme&nbsp&nbsp&nbsp</span><input title="sexe" class='sizeInputFormRadio personalInfos' type="radio" name="genre"><span class='sizeInputFormRadio'> Une femme</span><br> <br>
+        <input required title="sexe" class='sizeInputFormRadio' type="radio" value="homme"  name="genre" id='radiosexe1' checked><span class='sizeInputFormRadio'> Un homme&nbsp&nbsp&nbsp</span><input title="sexe" class='sizeInputFormRadio personalInfos' type="radio" name="genre" id='radiosexe2'><span class='sizeInputFormRadio'> Une femme</span><br> <br>
 
         <label class='sizeLabelForm' for="fname">* Veuillez saisir votre date de naissance :</label><br>
-        <input required title="anniversaire" class='sizeInputFormDate personalInfos' type="date"> <br><br><br>
+        <input id='formBirthdate' required title="anniversaire" class='sizeInputFormDate personalInfos' type="date"> <br><br><br>
 
         <label class='sizeLabelForm' for="fname">* Veuillez saisir votre email :</label><br>
-        <input required title="mail" class='sizeInputForm personalInfos' type="email"> <br><br><br>
+        <input id='formMail' required title="mail" class='sizeInputForm personalInfos' type="email"> <br><br><br>
 
         <label class='sizeLabelForm' for="fname">* Veuillez saisir votre téléphone :</label><br>
-        <input required title="telephone" class='sizeInputForm personalInfos' type="phone"> <br><br><br>
+        <input id='formPhone' required title="telephone" class='sizeInputForm personalInfos' type="phone"> <br><br><br>
 
         <label required class='sizeLabelForm' for="fname">* Veuillez saisir votre addresse de livraison :</label><br><br>
-        <label required class='sizeLabelForm' for="fname">* Addresse</label><br><input required title="adresse" class='sizeInputForm personalInfos' type="address"> <br> <br>
-        <label class='sizeLabelForm' for="fname">Complément d'addresse</label> <br><input title="complement" class='sizeInputForm personalInfos' type="address"> <br><br>
-        <label required class='sizeLabelForm' for="fname">* Code postale</label> <br><input required title="zipcode" class='sizeInputForm personalInfos' type="address"> <br><br>
-        <label required class='sizeLabelForm' for="fname">* Ville</label><br> <input required title="ville" class='sizeInputForm personalInfos' type="address"> <br><br>
-        <label required class='sizeLabelForm' for="fname">* Pays</label><br> <input required title="Pays" class='sizeInputForm personalInfos' type="address"> <br><br>
+        <label required class='sizeLabelForm' for="fname">* Adresse</label><br><input id='formAddress'required title="adresse" class='sizeInputForm personalInfos' type="address"> <br> <br>
+        <label class='sizeLabelForm' for="fname">Complément d'addresse</label> <br><input id='formAddressComplement'title="complement" class='sizeInputForm' type="address"> <br><br>
+        <label required class='sizeLabelForm' for="fname">* Code postale</label> <br><input id='formZipcode' required title="zipcode" class='sizeInputForm personalInfos' type="address"> <br><br>
+        <label required class='sizeLabelForm' for="fname">* Ville</label><br> <input id='formCity' required title="ville" class='sizeInputForm personalInfos' type="address"> <br><br>
+        <label required class='sizeLabelForm' for="fname">* Pays</label><br> <input id='formCountry' required title="Pays" class='sizeInputForm personalInfos' type="address"> <br><br>
 
         <label class='sizeLabelForm' for="fname">Désirez-vous un emballage cadeau ?</label><br>
-        <input title="gift"  type="radio" value="oui" name="cadeau"><span class='sizeInputFormRadio personalInfos'> Oui&nbsp&nbsp&nbsp</span><input type="radio" value="non" name="cadeau"><span class='sizeInputFormRadio'> Non</span> <br> <br> <br>
+        <input title="gift"  type="radio" value="oui" name="cadeau"  id='radioGift1'><span class='sizeInputFormRadio'> Oui&nbsp&nbsp&nbsp</span><input type="radio" value="non" name="cadeau" id='radioGift2'checked><span class='sizeInputFormRadio'> Non</span> <br> <br> <br>
 
 
-<button  class='confirmOrderButton' id='confirmOrderButton'>Procédez au paiement</button>
-<!-- href="./ConfirmOrderPage.html" -->
-        <!-- <input action="./ConfirmOrderPage.html" type="submit" value='Confirmer'> <br> -->
+        <input id='confirmOrderButton' class='confirmOrderButton' type="submit" value='Procédez au paiement'> <br>
     </form>
 
 

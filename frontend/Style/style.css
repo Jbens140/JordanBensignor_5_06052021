@@ -7,7 +7,7 @@ html {
 
 .HeaderNav {
     display: grid;
-    grid-template-columns: 80% 10% 10%;
+    grid-template-columns: 83% 7% 10%;
     grid-template-rows: 100px;
     align-items: center;
 }
@@ -226,13 +226,7 @@ body {
     margin-left: 5%;
 }
 
-.ProductPageFooter {
-    background: rgba(237, 153, 248, 0.774);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5%;
-}
+
 
 .Footer {
     background: rgb(237, 153, 248);
@@ -244,7 +238,16 @@ body {
     width: 100%;
     margin-top: 100px;
 }
-
+.ProductPageFooter {
+    background: rgb(237, 153, 248);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 100px;
+}
 
 .SocialIcon {
     display: flex;
@@ -341,14 +344,15 @@ body {
     font-size: 20px;
     height: 50px;
     width: 100%;
-
+cursor: pointer;
     background: linear-gradient(-10deg, rgba(2, 190, 80, 0.794), rgba(241, 238, 234, 0.787));
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+a{
+    text-decoration: none;
+}
 .confirmOrderButton:hover {
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.301);
 }
@@ -531,8 +535,8 @@ left: 1600px */
     cursor: pointer;
 }
 input:required:invalid {
-    background: #fa424227;
-  
+    /* background: #fa424227; */
+    background: white;  
   }
 
 
