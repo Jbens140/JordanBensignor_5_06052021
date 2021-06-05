@@ -106,8 +106,11 @@ window.onclick = function (event) {
 
         Qty = 0
         for (const [key, value] of Object.entries(localStorage)) {
+            if (key !== 'PersonalInfos' && key !== 'orderID') {
+
             val = JSON.parse(value)
             Qty += parseInt(val.quantite)
+            }
         }
         if (Qty !== 0) {
             document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
@@ -115,8 +118,11 @@ window.onclick = function (event) {
         document.getElementById('AddToCart').addEventListener('click', function () {
             Qty = 0
             for (const [key, value] of Object.entries(localStorage)) {
+                if (key !== 'PersonalInfos' && key !== 'orderID') {
+
                 val = JSON.parse(value)
                 Qty += parseInt(val.quantite)
+                }
             }
             if (Qty !== 0) {
                 document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`

@@ -2,43 +2,48 @@
 // localStorage.clear()
 let text = ''
 let index = 0
+let arrayIdProduct = []
 for (const [key, value] of Object.entries(localStorage)) {
-    Value = JSON.parse(value)
-    Key = key
-    let confirmationDeleteSentence = ''
-    if (Value.quantite == 1) confirmationDeleteSentence = 'Êtes-vous sûr de vouloir supprimer cet article de votre panier ?'
-    if (Value.quantite > 1) confirmationDeleteSentence = 'Êtes-vous sûr de vouloir supprimer ces articles de votre panier ?'
+    if (key !== 'PersonalInfos' && key !== 'orderID') {
+        try {
+            Value = JSON.parse(value)
+            Key = key
+            let confirmationDeleteSentence = ''
+            if (Value.quantite == 1) confirmationDeleteSentence = 'Êtes-vous sûr de vouloir supprimer cet article de votre panier ?'
+            if (Value.quantite > 1) confirmationDeleteSentence = 'Êtes-vous sûr de vouloir supprimer ces articles de votre panier ?'
+            arrayIdProduct.push(Key)
+            text =
+                `<div class="OrderDescription">\
+     <img class="productImage" src="${Value.image}" alt="${Value.nom}">\
+     <span class="SelectPosition"><select idProduit='${Key}' id="Quantity-${index}" class="Quantity">\
+     <option value="1">1</option>\
+     <option value="2">2</option>\
+     <option value="3">3</option>\
+     <option value="4">4</option>\
+     <option value="5">5</option>\
+     <option value="6">6</option>\
+     <option value="7">7</option>\
+     <option value="8">8</option>\
+     <option value="9">9</option>\
+     <option value="10">10</option>\
+    </select>\ ${Value.nom} - ${Value.couleurs} - PU : ${Value.prix} € <button id="removeItem-${Key}" class="removeItem">❌</button></span>\
+    <div class="deletionItemPopup" id="deletionItemPopup-${Key}" hidden>
+      <div class="deletionSentence" id="deletionItemSentence-${Key}" >${confirmationDeleteSentence}
+      <button id="confirmButtonPopup-${Key}" class="confirmButton ButtonPopup">Oui</button><button id="cancelButtonPopup-${Key}" class="cancelButton ButtonPopup">Non</button></div>
+      </div>
+      </div>`
 
-    text =
-        `<div class="OrderDescription">\
- <img class="productImage" src="${Value.image}" alt="${Value.nom}">\
- <span class="SelectPosition"><select idProduit='${Key}' id="Quantity-${index}" class="Quantity">\
- <option value="1">1</option>\
- <option value="2">2</option>\
- <option value="3">3</option>\
- <option value="4">4</option>\
- <option value="5">5</option>\
- <option value="6">6</option>\
- <option value="7">7</option>\
- <option value="8">8</option>\
- <option value="9">9</option>\
- <option value="10">10</option>\
-</select>\ ${Value.nom} - ${Value.couleurs} - PU : ${Value.prix} € <button id="removeItem-${Key}" class="removeItem">❌</button></span>\
-<div class="deletionItemPopup" id="deletionItemPopup-${Key}" hidden>
-  <div class="deletionSentence" id="deletionItemSentence-${Key}" >${confirmationDeleteSentence}
-  <button id="confirmButtonPopup-${Key}" class="confirmButton ButtonPopup">Oui</button><button id="cancelButtonPopup-${Key}" class="cancelButton ButtonPopup">Non</button></div>
-  </div>
-  </div>`
-
-    // insere apres la DIV id=FinalOrder
-    document.getElementById('FinalOrder').insertAdjacentHTML('beforeend', text)
+            // insere apres la DIV id=FinalOrder
+            document.getElementById('FinalOrder').insertAdjacentHTML('beforeend', text)
 
 
-    // positionne la select liste sur la quantite stockée sur le localStorage
-    var quantity = document.getElementById(`Quantity-${index}`);
-    quantity.options[Value.quantite - 1].setAttribute('selected', '')
+            // positionne la select liste sur la quantite stockée sur le localStorage
+            var quantity = document.getElementById(`Quantity-${index}`);
+            quantity.options[Value.quantite - 1].setAttribute('selected', '')
 
-    index++
+            index++
+        } catch (error) {}
+    }
 }
 
 
@@ -59,17 +64,23 @@ selectQuantityList.forEach(item =>
 
         totalPrice = 0
         for (const [key, value] of Object.entries(localStorage)) {
-            Value = JSON.parse(value)
-            Key = key
-            totalPrice += parseInt(Value.quantite * Value.prix)
+            if (key !== 'PersonalInfos' && key !== 'orderID') {
+
+                Value = JSON.parse(value)
+                Key = key
+                totalPrice += parseInt(Value.quantite * Value.prix)
+            }
         }
 
         document.getElementById('totalPriceOrder').innerHTML = `<div class="totalPrice">Total de votre commande : ${parseInt(totalPrice).toFixed(2)} € <a href='#orderForm' id='confirmationOrder'>Confirmez votre commande</a></div></div>`
 
         Qty = 0
         for (const [key, value] of Object.entries(localStorage)) {
-            val = JSON.parse(value)
-            Qty += parseInt(val.quantite)
+            if (key !== 'PersonalInfos' && key !== 'orderID') {
+
+                val = JSON.parse(value)
+                Qty += parseInt(val.quantite)
+            }
         }
         if (Qty !== 0) {
             document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
@@ -80,8 +91,12 @@ selectQuantityList.forEach(item =>
 
 Qty = 0
 for (const [key, value] of Object.entries(localStorage)) {
-    val = JSON.parse(value)
-    Qty += parseInt(val.quantite)
+    if (key !== 'PersonalInfos' && key !== 'orderID') {
+
+        // console.log('*****',value)
+        val = JSON.parse(value)
+        Qty += parseInt(val.quantite)
+    }
 }
 if (Qty !== 0) {
     document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
@@ -89,9 +104,12 @@ if (Qty !== 0) {
 
 totalPrice = 0
 for (const [key, value] of Object.entries(localStorage)) {
-    Value = JSON.parse(value)
-    Key = key
-    totalPrice += parseInt(Value.quantite * Value.prix)
+    if (key !== 'PersonalInfos' && key !== 'orderID') {
+
+        Value = JSON.parse(value)
+        Key = key
+        totalPrice += parseInt(Value.quantite * Value.prix)
+    }
 }
 
 document.getElementById('totalPriceOrder').innerHTML = `<div class="totalPrice">Total de votre commande : ${parseInt(totalPrice).toFixed(2)} € <a href='#orderForm' id='confirmationOrder'>Confirmez votre commande</a></div>`
@@ -250,13 +268,53 @@ document.getElementById('confirmOrderButton').addEventListener('click', function
         }
     }
 
-
     // console.log(errorForm)
     // Redirect if the entire form is properly filled 
     if (errorForm.length === 0) {
-        localStorage.setItem( 'PersonalInfos', personalinfosObject);
+        localStorage.setItem('PersonalInfos', JSON.stringify(personalinfosObject));
         window.location.href = "./ConfirmOrderPage.html";
-       
+        let url = "http://localhost:3000/api/teddies/order";
+        console.log("VALID FORM\n", localStorage)
+        let arrayIdProduct = []
+        for (const [key, value] of Object.entries(localStorage)) {
+            if (key !== "PersonalInfos") {
+                // console.log('*****',value)
+                let val = JSON.parse(value)
+                console.log('******', val)
+                arrayIdProduct.push(val.id)
+            }
+
+
+        }
+
+        let data = {
+            contact: {
+                firstName: personalinfosObject.prenom,
+                lastName: personalinfosObject.nom,
+                address: personalinfosObject.adresse,
+                city: personalinfosObject.ville,
+                email: personalinfosObject.mail
+            },
+            products: arrayIdProduct
+        };
+        console.log("DATA\n", data)
+
+
+        var json = JSON.stringify(data);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+            var finalOrder = JSON.parse(xhr.responseText);
+            if (xhr.readyState == 4 && xhr.status == "201") {
+                console.log(finalOrder);
+                localStorage.setItem('orderID', JSON.stringify(finalOrder.orderId));
+            } else {
+                console.error(finalOrder);
+            }
+        }
+        xhr.send(json);
+
     }
 })
 
@@ -265,37 +323,33 @@ document.getElementById('confirmOrderButton').addEventListener('click', function
 // supression par ID product
 let listOrderId = Object.keys(localStorage)
 for (let i = 0; i < listOrderId.length; i++) {
-    document.getElementById(`removeItem-${listOrderId[i]}`).addEventListener('click', function () {
-        // alert('Vous etes sur de vouloir supprimer cet article ?')
-        console.log(listOrderId[i])
+    if (listOrderId[i] !== 'PersonalInfos' && listOrderId[i] !== 'orderID') {
 
-        //display popup
-        document.getElementById(`deletionItemPopup-${listOrderId[i]}`).removeAttribute("hidden");
+        document.getElementById(`removeItem-${listOrderId[i]}`).addEventListener('click', function () {
+            // alert('Vous etes sur de vouloir supprimer cet article ?')
+            console.log(listOrderId[i])
 
-        //if click on YES
-        document.getElementById(`confirmButtonPopup-${listOrderId[i]}`).addEventListener('click', function () {
-            localStorage.removeItem(listOrderId[i])
-            document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
-            document.location.reload()
+            //display popup
+            document.getElementById(`deletionItemPopup-${listOrderId[i]}`).removeAttribute("hidden");
+
+            //if click on YES
+            document.getElementById(`confirmButtonPopup-${listOrderId[i]}`).addEventListener('click', function () {
+                localStorage.removeItem(listOrderId[i])
+                document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
+                document.location.reload()
+            })
+
+            //if click on NO
+            document.getElementById(`cancelButtonPopup-${listOrderId[i]}`).addEventListener('click', function () {
+                document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
+            })
+            // console.log(localStorage)
         })
-
-        //if click on NO
-        document.getElementById(`cancelButtonPopup-${listOrderId[i]}`).addEventListener('click', function () {
-            document.getElementById(`deletionItemPopup-${listOrderId[i]}`).setAttribute("hidden", "")
-        })
-        // console.log(localStorage)
-    })
+    }
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
+console.log(localStorage)

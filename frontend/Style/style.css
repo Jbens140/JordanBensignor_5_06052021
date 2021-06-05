@@ -68,7 +68,7 @@ body {
     justify-content: center;
     font-weight: normal;
     font-style: italic;
-    font-size: 110%;
+    font-size: 140%;
     margin-bottom: 35px;
 }
 
@@ -140,6 +140,8 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-decoration: none !important;
     color: black;
+    font-size: x-large;
+    margin-top: 10px;
 }
 
 .BearPrice {
@@ -150,6 +152,7 @@ body {
     margin-top: 5px;
     text-decoration: none !important;
     color: black;
+    font-size: large;
 }
 
 #colorChoice {
@@ -539,6 +542,19 @@ input:required:invalid {
     background: white;  
   }
 
+
+.orderConfirmed{
+     width: 900px;
+     margin: 0 auto;
+     padding: 30px 50px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: x-large;
+    border: solid 1px black;
+    border-radius: 30px;
+    background:linear-gradient(-10deg, rgba(98, 0, 255, 0.281), rgba(216, 117, 3, 0.472));
+   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.301);
+    
+}
 
 
 /* Add animation (fade in the popup) */

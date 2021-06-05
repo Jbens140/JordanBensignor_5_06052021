@@ -16,7 +16,6 @@ request.onreadystatechange = function () {
     <img class="BearImg" src="'+ tableauPeluches[peluches].imageUrl +'" alt="Teddy_1">\
     <div class="BearTitle">'+ tableauPeluches[peluches].name +'</div>\
     <div class="BearPrice">'+ parseInt(tableauPeluches[peluches].price/100).toFixed(2) +' €</div>\
-    <div class="BearColors">\
     </div>\
 </a>\
 </div>';
@@ -31,8 +30,11 @@ request.onreadystatechange = function () {
 // quantite a cote de panier 
     Qty = 0
     for (const [key, value] of Object.entries(localStorage)) {
+        if (key !== 'PersonalInfos' && key !== 'orderID') {
+
         val = JSON.parse(value)
         Qty += parseInt(val.quantite)
+        }
     }
     if (Qty !== 0) {
         document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
