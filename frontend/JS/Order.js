@@ -1,4 +1,4 @@
-// console.log(localStorage)
+
 // localStorage.clear()
 let text = ''
 let index = 0
@@ -6,6 +6,7 @@ let arrayIdProduct = []
 for (const [key, value] of Object.entries(localStorage)) {
     if (key !== 'PersonalInfos' && key !== 'orderID') {
         try {
+// Supression d'un produit du panier + localstorage -------------------------
             Value = JSON.parse(value)
             Key = key
             let confirmationDeleteSentence = ''
@@ -49,7 +50,7 @@ for (const [key, value] of Object.entries(localStorage)) {
 
 
 
-
+// Possibilité d'ajouter ou de retirer des items directement dans le panier -----
 
 let selectQuantityList = document.querySelectorAll(`.Quantity`)
 
