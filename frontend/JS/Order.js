@@ -6,7 +6,7 @@ let arrayIdProduct = []
 for (const [key, value] of Object.entries(localStorage)) {
     if (key !== 'PersonalInfos' && key !== 'orderID') {
         try {
-// Supression d'un produit du panier + localstorage -------------------------
+            // Supression d'un produit du panier + localstorage -------------------------
             Value = JSON.parse(value)
             Key = key
             let confirmationDeleteSentence = ''
@@ -43,7 +43,7 @@ for (const [key, value] of Object.entries(localStorage)) {
             quantity.options[Value.quantite - 1].setAttribute('selected', '')
 
             index++
-        } catch (error) {}
+        } catch (error) { }
     }
 }
 
@@ -141,25 +141,36 @@ let personalinfosObject = {
 
 
 // radio button algo sexe / gift
-document.getElementById("radiosexe1").addEventListener("click", function () {
-    document.getElementById("radiosexe1").setAttribute('checked', '')
-    document.getElementById("radiosexe2").removeAttribute('checked', '')
-    personalinfosObject.sexe = 'homme'
-})
-document.getElementById("radiosexe2").addEventListener("click", function () {
-    document.getElementById("radiosexe2").setAttribute('checked', '')
-    document.getElementById("radiosexe1").removeAttribute('checked', '')
-    personalinfosObject.sexe = 'femme'
-})
-document.getElementById("radioGift1").addEventListener("click", function () {
-    document.getElementById("radioGift1").setAttribute('checked', '')
-    document.getElementById("radioGift2").removeAttribute('checked', '')
-    personalinfosObject.gift = 'oui'
-})
-document.getElementById("radioGift2").addEventListener("click", function () {
-    document.getElementById("radioGift2").setAttribute('checked', '')
-    document.getElementById("radioGift1").removeAttribute('checked', '')
-    personalinfosObject.gift = 'non'
+// document.getElementById("radiosexe1").addEventListener("click", function () {
+//     document.getElementById("radiosexe1").setAttribute('checked', '')
+//     document.getElementById("radiosexe2").removeAttribute('checked', '')
+//     personalinfosObject.sexe = 'homme'
+// })
+// document.getElementById("radiosexe2").addEventListener("click", function () {
+//     document.getElementById("radiosexe2").setAttribute('checked', '')
+//     document.getElementById("radiosexe1").removeAttribute('checked', '')
+//     personalinfosObject.sexe = 'femme'
+// })
+// document.getElementById("radioGift1").addEventListener("click", function () {
+//     document.getElementById("radioGift1").setAttribute('checked', '')
+//     document.getElementById("radioGift2").removeAttribute('checked', '')
+//     personalinfosObject.gift = 'oui'
+// })
+// document.getElementById("radioGift2").addEventListener("click", function () {
+//     document.getElementById("radioGift2").setAttribute('checked', '')
+//     document.getElementById("radioGift1").removeAttribute('checked', '')
+//     personalinfosObject.gift = 'non'
+// });
+
+document.querySelectorAll('input[name="genre"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+        personalinfosObject.sexe = event.target.value
+    });
+  });
+  document.querySelectorAll('input[name="cadeau"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+        personalinfosObject.gift = event.target.value
+    });
 });
 
 
@@ -272,19 +283,23 @@ document.getElementById('confirmOrderButton').addEventListener('click', function
     // console.log(errorForm)
     // Redirect if the entire form is properly filled 
     if (errorForm.length === 0) {
-        localStorage.setItem('PersonalInfos', JSON.stringify(personalinfosObject));
-        window.location.href = "./ConfirmOrderPage.html";
         let url = "http://localhost:3000/api/teddies/order";
         console.log("VALID FORM\n", localStorage)
         let arrayIdProduct = []
         for (const [key, value] of Object.entries(localStorage)) {
-            if (key !== "PersonalInfos") {
-                // console.log('*****',value)
-                let val = JSON.parse(value)
-                console.log('******', val)
-                arrayIdProduct.push(val.id)
-            }
+            try {
+                if (key !== "PersonalInfos") {
+                    // console.log('*****',value)
+                    let val = JSON.parse(value)
+                    if (val.id !== undefined) {
+                        console.log('******', val)
+                        arrayIdProduct.push(val.id)
+                    }
 
+                }
+            } catch (error) {
+                console.log("Une erreur s'est produite" + error)
+            }
 
         }
 
@@ -299,22 +314,35 @@ document.getElementById('confirmOrderButton').addEventListener('click', function
             products: arrayIdProduct
         };
         console.log("DATA\n", data)
-
-
-        var json = JSON.stringify(data);
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.onload = function () {
-            var finalOrder = JSON.parse(xhr.responseText);
-            if (xhr.readyState == 4 && xhr.status == "201") {
-                console.log(finalOrder);
-                localStorage.setItem('orderID', JSON.stringify(finalOrder.orderId));
-            } else {
-                console.error(finalOrder);
+        try {
+            const options = {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
+            /////////////////// REQUETE /////////////////// 
+            fetch(url, options)
+                .then(response => response.json())
+                .then(finalOrder => {
+                    console.log(finalOrder);
+                    if (finalOrder.orderId) {
+                        localStorage.clear()
+                        localStorage.setItem('orderID', JSON.stringify(finalOrder.orderId));
+                        localStorage.setItem('PersonalInfos', JSON.stringify(personalinfosObject));
+                        setTimeout(function () { window.location.href = "./ConfirmOrderPage.html"; }, 2000);
+                    } else {
+                        alert("Nous rencontrons une erreur avec Order")
+                    }
+
+
+                })
+                .catch(erreur => alert("Nous rencontrons une erreur :" + erreur))
+
+        } catch (error) {
+            console.log("Une erreur s'est produite" + error)
         }
-        xhr.send(json);
 
     }
 })
