@@ -75,14 +75,7 @@ selectQuantityList.forEach(item =>
 
         document.getElementById('totalPriceOrder').innerHTML = `<div class="totalPrice">Total de votre commande : ${parseInt(totalPrice).toFixed(2)} € <a href='#orderForm' id='confirmationOrder'>Confirmez votre commande</a></div></div>`
 
-        Qty = 0
-        for (const [key, value] of Object.entries(localStorage)) {
-            if (key !== 'PersonalInfos' && key !== 'orderID') {
-
-                val = JSON.parse(value)
-                Qty += parseInt(val.quantite)
-            }
-        }
+        Qty = CalculerQty()
         if (Qty !== 0) {
             document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
         }
@@ -90,15 +83,7 @@ selectQuantityList.forEach(item =>
 )
 
 
-Qty = 0
-for (const [key, value] of Object.entries(localStorage)) {
-    if (key !== 'PersonalInfos' && key !== 'orderID') {
-
-        // console.log('*****',value)
-        val = JSON.parse(value)
-        Qty += parseInt(val.quantite)
-    }
-}
+Qty = CalculerQty()
 if (Qty !== 0) {
     document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
 }
@@ -163,12 +148,12 @@ let personalinfosObject = {
 // });
 
 document.querySelectorAll('input[name="genre"]').forEach((elem) => {
-    elem.addEventListener("change", function(event) {
+    elem.addEventListener("change", function (event) {
         personalinfosObject.sexe = event.target.value
     });
-  });
-  document.querySelectorAll('input[name="cadeau"]').forEach((elem) => {
-    elem.addEventListener("change", function(event) {
+});
+document.querySelectorAll('input[name="cadeau"]').forEach((elem) => {
+    elem.addEventListener("change", function (event) {
         personalinfosObject.gift = event.target.value
     });
 });

@@ -113,26 +113,12 @@ try {
                 }
                 // console.log('You selected: ', this.value);
             });
-            Qty = 0
-            for (const [key, value] of Object.entries(localStorage)) {
-                if (key !== 'PersonalInfos' && key !== 'orderID') {
-
-                    val = JSON.parse(value)
-                    Qty += parseInt(val.quantite)
-                }
-            }
+            Qty = CalculerQty()
             if (Qty !== 0) {
                 document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
             }
             document.getElementById('AddToCart').addEventListener('click', function () {
-                Qty = 0
-                for (const [key, value] of Object.entries(localStorage)) {
-                    if (key !== 'PersonalInfos' && key !== 'orderID') {
-
-                        val = JSON.parse(value)
-                        Qty += parseInt(val.quantite)
-                    }
-                }
+                Qty = CalculerQty()
                 if (Qty !== 0) {
                     document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
                 }

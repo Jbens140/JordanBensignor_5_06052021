@@ -23,14 +23,7 @@ try {
 
             }
             // Affichage de quantite à coté du panier ----------------------------
-            Qty = 0
-            for (const [key, value] of Object.entries(localStorage)) {
-                if (key !== 'PersonalInfos' && key !== 'orderID') {
-
-                    val = JSON.parse(value)
-                    Qty += parseInt(val.quantite)
-                }
-            }
+            Qty = CalculerQty()
             if (Qty !== 0) {
                 document.getElementById('OrderQuantity').innerHTML = `&nbsp(${Qty})`
             }
